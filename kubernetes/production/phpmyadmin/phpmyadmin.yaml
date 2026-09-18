@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          env:
+          - name: PMA_HOST
+            valueFrom:
+              secretKeyRef:
+                name: env-secrets
+                key: DB_HOST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin-service
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /
+spec:
+  selector:
+    app: phpmyadmin
+  ports:
+    - port: 80
+      targetPort: 80

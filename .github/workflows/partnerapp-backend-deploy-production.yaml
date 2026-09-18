@@ -1,0 +1,65 @@
+name: PartnerApp - Deploy to production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Production
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v4
+
+    # Currently, PartnerApp backend isn't using semantic versioning.
+    # Because of this, we won't check if this job is being run on a tag
+    # and we will tag images as staging and production, respectively.
+
+    #- name: Set tag and version environment variables
+    #  run: |
+    #    echo "PARTNERAPP_TAG=$GITHUB_REF" >> $GITHUB_ENV
+    #    export PARTNERAPP_VERSION=$(echo $GITHUB_REF | sed -e 's/.*\/partnerapp\/v//g')
+    #    echo "PARTNERAPP_VERSION=$PARTNERAPP_VERSION" >> $GITHUB_ENV
+
+    #- name: Get tag and version environment variables
+    #  run: |
+    #    echo "PARTNERAPP_TAG is ${{ env.PARTNERAPP_TAG }}"
+    #    echo "PARTNERAPP_VERSION is ${{ env.PARTNERAPP_VERSION }}"
+
+    #- name: Ensure a valid tag is being used
+    #  run: >
+    #    if [[ ! $PARTNERAPP_TAG =~ .*partnerapp/v[0-9]+\.[0-9]+\.[0-9a-zA-Z\-]+$ ]]; then
+    #        echo "Tag $PARTNERAPP_TAG doesn't match the required pattern .*partnerapp/v[0-9]+\.[0-9]+\.[0-9].*$";
+    #        exit 1;
+    #    fi
+
+    - name: Setup AWS CLI
+      uses: unfor19/install-aws-cli-action@master
+
+    - name: Login to ECR
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ secrets.ECR_REGISTRY_URL }}
+        username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        context: .
+        file: ./docker/partner-app-backend/Dockerfile
+        target: release
+        tags: ${{ secrets.ECR_PARTNERAPP_REPO }}:production
+
+    - name : Restart pods
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBECONFIG }}" >> $HOME/.kube/config
+        kubectl config use-context ${{ secrets.CLUSTER_NAME }}
+        kubectl rollout restart deployment partnerapp-backend-deployment
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}

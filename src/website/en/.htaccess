@@ -1,0 +1,40 @@
+RewriteEngine On
+
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+RewriteRule ^([0-9]+)$ index.php&mess=$1
+
+RewriteRule ^za-poslodavca$ poslodavac-index.php
+
+RewriteRule ^za-kandidata$ kandidat-index.php
+
+RewriteRule ^([a-zA-Z0-9_-]+)/onama$ onama.php?lang=$1
+
+RewriteRule ^([a-zA-Z0-9_-]+)/kontakt$ kontakt.php?lang=$1
+
+RewriteRule ^([a-zA-Z0-9_-]+)/faq$ faq.php?lang=$1
+
+RewriteRule ^sadrzaj/([a-zA-Z0-9_-]+)/([0-9]+)$ sadrzaj.php?id=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/sadrzaj/([a-zA-Z0-9_-]+)/([0-9]+)$ sadrzaj.php?lang=$1&id=$3
+
+RewriteRule ^posao/([a-zA-Z0-9_-]+)/([0-9]+)$ posao.php?id=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/posao/([a-zA-Z0-9_-]+)/([0-9]+)$ posao.php?lang=$1&id=$3
+
+RewriteRule ^([a-zA-Z0-9_-]+)/blogs$ blogs.php?lang=$1
+
+RewriteRule ^clanak/([a-zA-Z0-9_-]+)/([0-9]+)$ clanak.php?id=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/clanak/([a-zA-Z0-9_-]+)/([0-9]+)$ clanak.php?lang=$1&id=$3
+
+RewriteRule ^([a-zA-Z0-9_-]+)/konkursi$ konkursi.php?lang=$1
+
+RewriteRule ^([a-zA-Z0-9_-]+)/usluge$ usluge.php?lang=$1
+
+RewriteRule ^([a-zA-Z0-9_-]+)/pregled-poslova/zanimanje/([0-9]+)$ pregled-poslova.php?lang=$1&zanimanje=$2
+
+RewriteRule ^([a-zA-Z0-9_-]+)/pregled-poslova/lokacija/([0-9]+)$ pregled-poslova.php?lang=$1&lokacija=$2
+
+#Izbrisi .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

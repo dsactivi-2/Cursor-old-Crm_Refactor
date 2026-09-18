@@ -1,0 +1,24 @@
+.alert{
+	width: auto;
+    .close{
+        display: block;
+        text-shadow: none;
+        color: white;
+    }
+}
+
+.alert-success{
+    color: white;
+    background-color: $notify-success-green;
+    border-color: $notify-success-green;
+    border-radius: $b-radius;
+}
+
+.alert-danger{
+    color: white;
+    background-color: $notify-danger-red;
+    border-color: $notify-danger-red;
+    border-radius: $b-radius;
+}
+
+

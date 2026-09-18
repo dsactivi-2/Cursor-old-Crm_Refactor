@@ -1,0 +1,41 @@
+.form-group:not(.content-form-group){
+	padding: 30px 25px;
+	margin: 0;
+	background: white;
+	
+	.col-form-label{
+		color: $label-gray;
+		display: flex;
+		align-items: center;
+	}
+
+	&.btn-form-group{
+		text-align: right;
+	}
+
+	.resource-image-container{
+		max-width: 220px;
+		width: 100%;
+		object-fit: center;
+		object-position: cover;
+		img{
+			max-width: 220px;
+			width: 100%;
+			object-fit: center;
+			object-position: cover;
+		}
+	}
+
+	#resource-image-delete-btn{
+		cursor: pointer;
+    	color: $btn-blue;
+	}
+	
+	&:first-child{
+		border-radius: $b-radius $b-radius 0 0;
+	}
+
+	&:last-child{
+		border-radius: 0 0 $b-radius $b-radius;
+	}
+}

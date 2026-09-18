@@ -1,0 +1,41 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'abstracts/variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Mixins
+@import 'abstracts/mixins';
+
+// Components
+@import 'components/button';
+@import 'components/checkbox';
+@import 'components/notify';
+
+#app{
+	main{
+
+		img{
+			max-width:  250px;
+		}
+
+		.form-wrapper{
+			max-width: 30rem;
+			padding: 2rem 3rem;
+			box-shadow: $shadow;
+			border-radius: $b-radius;
+
+			.form-group{
+				label{
+					font-size: 17px;
+					color: #202c3a;
+				}
+
+				@import 'components/input';
+			}
+		}
+	}
+}

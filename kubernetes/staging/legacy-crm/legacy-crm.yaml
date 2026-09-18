@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legacy-crm-deployment
+spec:
+  selector:
+    matchLabels:
+      app: legacy-crm
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: legacy-crm
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: legacy-crm
+          image: 689072714931.dkr.ecr.eu-west-1.amazonaws.com/crm-core-repository:1.15.5-patch10
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          securityContext:
+            capabilities:
+              add: [ "SYS_PTRACE" ]
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - bash
+                  - '-c'
+                  - stop.sh 
+          readinessProbe:
+            httpGet:
+              path: /health.php
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+          - name: crm-files
+            mountPath: /var/www/html/files
+          - name: js-files
+            mountPath: /var/www/html/jobstep_pp/files
+          - name: php-sessions
+            mountPath: /php-sessions
+          env:
+          # CRM
+          - name: APP_ENV
+            value: "staging"
+          - name: CRM_URL
+            value: "https://staging.crm.job-step.com/"
+          - name: CRM_SERVER_NAME
+            value: "staging.crm.job-step.com"
+          # JS
+          - name: JS_URL
+            value: "https://staging.js.job-step.com/"
+          - name: JS_SERVER_NAME
+            value: "staging.js.job-step.com"
+          - name: JOIN_URL
+            value: "https://staging.join.job-step.com/"
+          # Messenger App
+          - name: MESSENGER_APP_KEY
+            value: "base64:4FpzPBdDQ1gW734lDQyyzgpjnOs03F20Jtdgr1L4Na4="
+          - name: MESSENGER_APP_URL
+            value: "https://staging.crm.job-step.com/messenger/"
+          # Online-viza App
+          - name: VIZA_APP_KEY
+            value: "base64:EBtMQBduawLTY/lPDR0q5//RNriBbR+eshVCLRW2p9U="
+          - name: VIZA_APP_URL
+            value: "https://staging.crm.job-step.com/online-viza/"
+          # Secrets
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: env-secrets
+                key: DB_HOST
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: env-secrets
+                key: DB_DATABASE
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: env-secrets
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-secrets
+                key: DB_PASSWORD
+      initContainers:
+      - name: fs-owner-change
+        image: busybox
+        command:
+        - chown
+          #- "-R"
+        - "www-data:www-data"
+        - "/crm-fs"
+        - "/js-fs"
+        - "/php-fs"
+        volumeMounts:
+        - mountPath: /crm-fs
+          name: crm-files
+        - mountPath: /js-fs
+          name: js-files
+        - mountPath: /php-fs
+          name: php-sessions
+      volumes:
+      - name: js-files
+        persistentVolumeClaim:
+          claimName: js-files-claim
+      - name: crm-files
+        persistentVolumeClaim:
+          claimName: crm-files-claim
+      - name: php-sessions
+        persistentVolumeClaim:
+          claimName: php-sessions-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: legacy-crm-service
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /health.php
+spec:
+  selector:
+    app: legacy-crm
+  ports:
+    - port: 80
+      targetPort: 80

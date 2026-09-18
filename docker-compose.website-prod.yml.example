@@ -1,0 +1,105 @@
+version: '3'
+services:
+  ingress:
+    container_name: NetworkIngress
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+    networks:
+      - network
+  acme:
+    image: nginxproxy/acme-companion
+    container_name: NetworkIngressAcme
+    restart: unless-stopped
+    volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DEFAULT_MAIL:
+      NGINX_PROXY_CONTAINER: NetworkIngress
+    networks:
+      - network
+  website:
+    container_name: Website
+    build:
+      dockerfile: ./docker/website/Dockerfile
+      target: dev
+    volumes:
+    - ./src/website:/var/www/html/
+    ports:
+      - "81:80"
+    networks:
+      - network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    environment:
+      APP_ENV: "prod"
+      WEBSITE_SERVER_NAME: "job-step.com"
+      WEBSITE_URL: "https://job-step.com/"
+      JOIN_URL: "https://join.job-step.com/"
+      CRM_URL: "https://crm.job-step.com/"
+      JS_URL: "https://js.job-step.com/"
+      DB_HOST:
+      DB_PORT:
+      DB_DATABASE_BS:
+      DB_DATABASE_EN:
+      DB_DATABASE_DE:
+      DB_DATABASE_SR:
+      DB_USER:
+      DB_PASSWORD:
+      # For ingress
+      VIRTUAL_HOST:
+      LETSENCRYPT_HOST:
+  mysql:
+    image: mysql:5.7.36
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION"
+    container_name: MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      TZ: Europe/Berlin
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./databaseDump:/databaseDump
+      - ./randomStuff:/randomStuff
+    networks:
+      - network
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: PhpMyAdmin
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      PMA_HOST:
+      PMA_PORT:
+      MYSQL_ROOT_PASSWORD:
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - network
+networks:
+  network:
+volumes:
+  dbdata:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:

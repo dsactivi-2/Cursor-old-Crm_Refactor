@@ -1,0 +1,27 @@
+name: CRM - Restart staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Staging
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v4
+
+    - name: Setup AWS CLI
+      uses: unfor19/install-aws-cli-action@master
+
+    - name : Restart pods
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBECONFIG }}" >> $HOME/.kube/config
+        kubectl config use-context ${{ secrets.CLUSTER_NAME }}
+        kubectl rollout restart deployment legacy-crm-deployment
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}

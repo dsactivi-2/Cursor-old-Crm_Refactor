@@ -1,0 +1,144 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crm-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:689072714931:certificate/aa151264-5013-40d7-b568-cd0dc91c5dc4,arn:aws:acm:eu-west-1:689072714931:certificate/96e014b4-2d77-4ad2-aa56-5603ece7d656,arn:aws:acm:eu-west-1:689072714931:certificate/576baddf-ad8a-46f2-a67c-cacc7d6c826c,arn:aws:acm:eu-west-1:689072714931:certificate/5a64f76f-5e5b-4271-ab9c-91d9e2c7d5c3,arn:aws:acm:eu-west-1:689072714931:certificate/b5fc8e94-ca5b-4a23-b2a2-d7d1d00d9d62,arn:aws:acm:eu-west-1:689072714931:certificate/770579d8-5fb5-4f66-8ee8-a0e16274cdf5,arn:aws:acm:eu-west-1:689072714931:certificate/afc1febf-3c49-45b0-bed2-74596b0e0b24,arn:aws:acm:eu-west-1:689072714931:certificate/4622a51a-f2a3-4076-a6c8-e55798c0e2d6,arn:aws:acm:eu-west-1:689072714931:certificate/ded89109-0bcf-437f-b3a9-e11bbcc28090,arn:aws:acm:eu-west-1:689072714931:certificate/209e6fd7-1ea9-4a1c-a703-96a7fbb80d04,arn:aws:acm:eu-west-1:689072714931:certificate/e3faa788-5faf-4819-b18a-ffedb9aea3fd,arn:aws:acm:eu-west-1:689072714931:certificate/5a20d29c-2a02-41e3-99de-5a7588ddaea3,arn:aws:acm:eu-west-1:689072714931:certificate/12335576-57db-4009-868d-334aae7ae4aa
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_307"}}'
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+spec:
+  ingressClassName: alb
+  rules:
+  - host: prod.crm.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: prod.js.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: prod.api.pa.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: partnerapp-backend-service
+              port:
+                number: 80
+  - host: prod.pma.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: phpmyadmin-service
+              port:
+                number: 80
+  - host: prod.pma.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: phpmyadmin-service
+              port:
+                number: 80
+  - host: crm.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: crm.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: js.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: js.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: join.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: join-service
+              port:
+                number: 80
+  - host: join.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: join-service
+              port:
+                number: 80
+  - host: api.pa.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: partnerapp-backend-service
+              port:
+                number: 80
+  - host: api.pa.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: partnerapp-backend-service
+              port:
+                number: 80

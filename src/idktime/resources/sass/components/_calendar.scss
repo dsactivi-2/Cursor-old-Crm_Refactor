@@ -1,0 +1,42 @@
+.fc-chrono .fc-cell-content{
+    background: white;
+    text-align: center;
+    padding-top: 15px !important;
+    padding-bottom: 12px !important;
+}
+
+.fc-rows td{
+    height: 50px;
+}
+
+.fc-resource-area{
+ 	max-width: 220px !important;
+        width: 220px !important;
+}
+
+.fc-toolbar.fc-header-toolbar{
+	.fc-left{
+		padding-left: 20px;
+		.btn-primary{
+			background-color: $btn-blue;
+			border-color: $btn-blue;
+		}
+	}
+
+	.fc-right{
+		padding-right: 20px;
+		.btn-primary{
+			background-color: $btn-blue;
+			border-color: $btn-blue;
+		}
+	}
+}
+
+.fc-scroller::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: $btn-blue;
+  outline: 1px solid $btn-blue;
+}

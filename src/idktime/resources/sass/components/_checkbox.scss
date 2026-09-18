@@ -1,0 +1,11 @@
+.custom-checkbox{
+	.custom-control-label{
+		&:before, &:after{
+			border-radius: 0.25rem;
+		}
+		&:before{
+			background-color: #dee2e6;
+			border-color: #dee2e6;
+		}
+	}
+}

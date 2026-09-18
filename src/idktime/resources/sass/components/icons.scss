@@ -1,0 +1,32 @@
+.action-icon{
+	text-decoration: none !important;
+	background: transparent;
+	box-shadow: none;
+	outline: none !important;
+	border: none;
+	padding: 0px;
+	@include transition (0.3s, ease-in-out);
+	i{
+		font-size: 18px;
+	    text-decoration: none;
+	    color: #333;
+	}
+
+	&.action-icon-primary:hover{
+		i{
+			color: $btn-blue;
+		}
+	}
+
+	&.action-icon-danger:hover{
+		i{
+			color: $notify-danger-red;
+		}
+	}
+
+	&.action-icon-success:hover{
+		i{
+			color: $notify-success-green;
+		}
+	}
+}

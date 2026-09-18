@@ -1,0 +1,65 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hidden::-webkit-scrollbar {
+display: none;
+}
+/* Hide scrollbar for IE, Edge add Firefox */
+.scrollbar-hidden {
+-ms-overflow-style: none;
+scrollbar-width: none; /* Firefox */
+}
+
+.jobStepBGColor{
+	background-color: #6097a0 !important;
+}
+.jobStepBtnColor{
+	color: rgb(255 255 255) !important;
+    background-color: #6097a0 !important;
+    border-color: #6097a0 !important;
+}
+.navbarLogo{
+	width: 150px;
+}
+.fontBold{
+	font-weight: bold !important;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(255 255 255) !important;
+	font-weight: normal;
+}
+.material-icons{
+	vertical-align: top;
+}
+.container{
+	overflow-y: auto !important;
+}
+.figure{
+	width: 100%;
+    text-align: center;
+	/*margin: 0 0 0 !important;*/
+	margin-top: -50%;
+	margin-bottom: 0;
+}
+.figure-img{
+	width: 50%;
+	margin-bottom: 0 !important;
+	/*border: 5px solid white;*/
+}
+.whiteBgColor {
+    background-color: rgb(0 0 0 / 0%) !important;
+}
+.rounded225{
+	border-radius: 2.25rem!important;
+}
+.jobStepColor{
+	color: #6197a0 !important; 
+    font-weight: bold !important;
+}
+.table{
+	margin-bottom: 0rem;
+}
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}

@@ -1,0 +1,14 @@
+stages:
+  - Live
+DeployToLive:
+  stage: Live
+  only:
+  - master
+  when: manual
+  script:
+    - |
+      ssh jobstep@10.9.0.10 "
+        set -x -e
+        cd /var/www/jobstep-app.com/private/messenger/
+        git pull
+      "

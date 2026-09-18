@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="icon" href="images/Jobstep-logo_news.png">
+		<title>JOBSTEP ERROR</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta content="Jobstep International d.o.o.  | Agencija za posredovanje pri zapošljavanju" property="og:site_name">
+    
+		<meta content="Jobstep International d.o.o.  | Agencija za posredovanje pri zapošljavanju" property="og:site_name">
+		<meta content="" property="og:image">
+		<meta content="Jobstep" property="og:title">
+		<meta content="Agencija Jobstep osnovana je 2010. godine u Bihaću, kao samostalna agencija za zapošljavanje svih državljana sa prostora bivše Jugoslavije na području Njemačke." property="og:description">
+
+		<!-- IDK Optimizacija | Jobstep International d.o.o. -->
+
+		<meta property="og:title" content="Jobstep International d.o.o. | Agencija za posredovanje pri zapošljavanju" />
+		<meta property="og:description" content="Agencija Jobstep osnovana je 2010. godine u Bihaću, kao samostalna agencija za zapošljavanje svih državljana sa prostora bivše Jugoslavije na području Njemačke." />
+		<meta property="og:image" content="https://crm.job-step.com/images/jobstep/header_img_seo.jpg" />
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Jobstep International d.o.o. | Agencija za posredovanje pri zapošljavanju">
+		<meta property="og:url" content="https://crm.job-step.com/">
+		<link href="https://crm.job-step.com/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://crm.job-step.com/css/jasny-bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<style>
+			footer{
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				border-top: 1px solid #ccc;
+				font-size: 12px;
+				text-align: center;
+				margin-top: 0px;
+			}
+			@media screen and (max-width: 991px) {
+				.img-responsive{
+					max-width: 100px !important;
+					margin-top: 10px !important;
+					margin-bottom: 10px !important;
+				}
+			}
+			body{
+				overflow-y: hidden; overflow-x: hidden;
+			}
+			.img-responsive{
+				max-width:200px; margin-top: 20px; margin-bottom: 20px;
+				}
+			.alertx{
+				background-color: #ffffff !important; color: #6097a0 !important; text-align: center !important; margin-top: 25px !important;
+				}
+			#footer{
+				position: absolute; left: 0; bottom: 0; width: 100%; border-top: 1px solid #ccc; font-size: 12px; text-align: center; margin-top: 0px;
+				}
+			@media screen and (max-width: 450px) {
+				.alertx h3{font-size: 18px;}
+				.img-responsive{max-width:200px; margin-top: 20px; margin-bottom: 20px;}
+			}
+			@media screen and (max-width: 350px) {
+				.alertx h3{font-size: 14px;}
+				.img-responsive{max-width:100px; margin-top: 10px; margin-bottom: 10px;}
+			}
+		</style>
+			<div class="container-fluid">
+				<div class="content_box">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<img class="img-responsive img-fluid" style="display:inline-block" src="https://crm.job-step.com/images/Jobstep_logo_new.png" alt="">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class = "col-md-8 col-md-offset-2">
+									<div class="row">
+										<div class = "col-sm-12 text-center">
+											<div class="alert material-alert material-alert_success alertx">
+												<h3>Pristup zabranjen ili istekao. Za više informacija kontaktirajte <a href="mailto:support@job-step.com">support@job-step.com</a>
+												</h3>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<footer  id="footer">
+						<p>
+						©2020 Sva prava pridržana - Jobstep IT Solutions
+						</p>
+					</footer>
+				</div>
+			</div> 
+	</body>
+</html>

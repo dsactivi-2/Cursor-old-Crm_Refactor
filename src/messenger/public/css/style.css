@@ -1,0 +1,37 @@
+.message{
+    padding: 5px;
+    display: inline-block;
+    width: 100%;
+}
+.message_special{
+    padding: 5px;
+    display: inline-block;
+    width: 100%;
+}
+.message_bot{
+    background-color: #6097a045 ;
+    float: left;
+    /* width: fit-content; */
+    border-radius: 20px;
+    max-width: 80%;
+}
+.message_user{
+    background-color: darkgrey  ;
+    float: right;
+    /* width: fit-content; */
+    border-radius: 20px;
+    max-width: 80%;
+}
+.content_message{
+    padding: 10px 10px 10px 10px;
+}
+.message_field{
+    overflow: auto;
+}
+.navbar li{
+	margin-top: 10px;
+    margin-left: 10px;
+}
+.navbar a{
+	color: inherit;  
+}

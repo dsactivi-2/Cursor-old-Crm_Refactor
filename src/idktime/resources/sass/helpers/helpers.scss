@@ -1,0 +1,14 @@
+.active{
+	color: white !important;
+}
+
+.btn{
+	&:focus{
+		outline: none !important;
+		box-shadow: none !important;
+	}
+}
+
+.pointer-events-disable{
+	pointer-events: none;
+}

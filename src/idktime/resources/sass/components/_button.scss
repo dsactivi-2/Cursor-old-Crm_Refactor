@@ -1,0 +1,52 @@
+.custom-button{
+	background: $btn-blue;
+    text-transform: uppercase;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    letter-spacing: .05em;
+    font-weight: 700;
+    color: white;
+    border-radius: $b-radius;
+    box-shadow: $shadow;
+    font-size: 14px;
+
+    &.custom-button-light{
+        background: white;
+        color: $label-gray;
+
+        &:hover{
+            color: white;
+            background: $notify-danger-red;
+            border-color: $notify-danger-red;
+        }
+    } 
+
+    &.custom-button-primary{
+        background: white;
+        color: $label-gray;
+
+        &:hover{
+            color: white;
+            background: $btn-blue;
+            border-color: $btn-blue;
+        }
+    }
+
+    &.custom-button-danger{
+        color: white;
+        background: $notify-danger-red;
+        border-color: $notify-danger-red;
+
+         &:hover{
+            color: white;
+            background: $notify-danger-red;
+            border-color: $notify-danger-red;
+        }
+    }
+
+    &:hover{
+        color: white;
+    	background: $btn-hover-blue;
+    	border-color: $btn-hover-blue;
+    }
+}

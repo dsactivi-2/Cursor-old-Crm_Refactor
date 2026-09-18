@@ -1,0 +1,180 @@
+version: '3'
+services:
+  ingress:
+    container_name: NetworkIngress
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - network
+  crm:
+    container_name: JobstepCRM
+    build:
+      dockerfile: ./docker/crm/Dockerfile
+      target: dev
+    volumes:
+    - ./src/crm:/var/www/html/
+    ports:
+      - "81:80"
+    networks:
+      - network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "dev.crm.jobstep.com:host-gateway"
+      - "dev.js.jobstep.com:host-gateway"
+      - "dev.join.jobstep.com:host-gateway"
+      - "dev.api.pa.jobstep.com:host-gateway"
+      - "dev.pma.jobstep.com:host-gateway"
+    restart: always
+    environment:
+      APP_ENV: "dev"
+      CRM_URL: "http://dev.crm.jobstep.com/"
+      CRM_SERVER_NAME: "dev.crm.jobstep.com"
+      JS_URL: "http://dev.js.jobstep.com/"
+      JS_SERVER_NAME: "dev.js.jobstep.com"
+      JOIN_URL: "http://dev.join.jobstep.com/"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: crmdb
+      DB_USER: user
+      DB_PASSWORD: password
+      # For ingress
+      VIRTUAL_HOST: "dev.crm.jobstep.com,dev.js.jobstep.com"
+  partnerapp:
+    container_name: PartnerAppBackend
+    build:
+      dockerfile: ./docker/partner-app-backend/Dockerfile
+      target: dev
+    volumes:
+    - ./src/jobstep-partner:/var/www/html/
+    ports:
+      - "82:80"
+    networks:
+      - network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "dev.crm.jobstep.com:host-gateway"
+      - "dev.js.jobstep.com:host-gateway"
+      - "dev.join.jobstep.com:host-gateway"
+      - "dev.api.pa.jobstep.com:host-gateway"
+      - "dev.pma.jobstep.com:host-gateway"
+    restart: always
+    environment:
+      APP_ENV: "dev"
+      PA_SERVER_NAME: "dev.api.pa.jobstep.com"
+      CRM_URL: "http://dev.crm.jobstep.com/"
+      JS_URL: "http://dev.js.jobstep.com/"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: crmdb
+      DB_USER: user
+      DB_PASSWORD: password
+      # For ingress
+      VIRTUAL_HOST: "dev.api.pa.jobstep.com"
+  join:
+    container_name: Join
+    build:
+      dockerfile: ./docker/join/Dockerfile
+      target: dev
+    volumes:
+    - ./src/join:/var/www/html/
+    ports:
+      - "83:80"
+    networks:
+      - network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "dev.crm.jobstep.com:host-gateway"
+      - "dev.js.jobstep.com:host-gateway"
+      - "dev.join.jobstep.com:host-gateway"
+      - "dev.api.pa.jobstep.com:host-gateway"
+      - "dev.pma.jobstep.com:host-gateway"
+    restart: always
+    environment:
+      APP_ENV: "dev"
+      JOIN_SERVER_NAME: "dev.join.jobstep.com"
+      JOIN_URL: "http://dev.join.jobstep.com/"
+      CRM_URL: "http://dev.crm.jobstep.com/"
+      JS_URL: "http://dev.js.jobstep.com/"
+      # For ingress
+      VIRTUAL_HOST: "dev.join.jobstep.com"
+  website:
+    container_name: Website
+    build:
+      dockerfile: ./docker/website/Dockerfile
+      target: dev
+    volumes:
+    - ./src/website:/var/www/html/
+    ports:
+      - "85:80"
+    networks:
+      - network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "dev.crm.jobstep.com:host-gateway"
+      - "dev.js.jobstep.com:host-gateway"
+      - "dev.join.jobstep.com:host-gateway"
+      - "dev.api.pa.jobstep.com:host-gateway"
+      - "dev.pma.jobstep.com:host-gateway"
+      - "dev.jobstep.com:host-gateway"
+    restart: always
+    environment:
+      APP_ENV: "dev"
+      WEBSITE_SERVER_NAME: "dev.jobstep.com"
+      WEBSITE_URL: "http://dev.jobstep.com/"
+      JOIN_URL: "http://dev.join.jobstep.com/"
+      CRM_URL: "http://dev.crm.jobstep.com/"
+      JS_URL: "http://dev.js.jobstep.com/"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE_BS: idkdev_jobstep
+      DB_DATABASE_EN: idkdev_jobstep_en
+      DB_DATABASE_DE: idkdev_jobstep_de
+      DB_DATABASE_SR: idkdev_jobstep_sr
+      DB_USER: user
+      DB_PASSWORD: password
+      # For ingress
+      VIRTUAL_HOST: "dev.jobstep.com"
+  mysql:
+    image: mysql:5.7.36
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION"
+    container_name: MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: crmdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Europe/Berlin
+    ports:
+      - "3306:3306"
+      - "84:80"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./databaseDump:/docker-entrypoint-initdb.d
+    networks:
+      - network
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: PhpMyAdmin
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: password
+      # For ingress
+      VIRTUAL_HOST: "dev.pma.jobstep.com"
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - network
+networks:
+  network:
+volumes:
+  dbdata:

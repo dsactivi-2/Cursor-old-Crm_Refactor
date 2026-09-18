@@ -1,0 +1,43 @@
+input{
+	border-width: 2px;
+	box-shadow: none;
+	background: transparent;
+	padding: 20px;
+	border-radius: $b-radius;
+	color: $btn-hover-blue;
+
+	@include transition (0.3s ease-in-out);
+
+	&:focus{
+		border-color: $btn-blue; 
+	}
+
+	&:hover{
+		border-color: $btn-blue;
+	}
+
+	&:disabled{
+		background-color: #e9ecef;
+
+		&:hover{
+			border-color: #ced4da;
+		}
+	}
+}
+
+textarea{
+	border-width: 2px;
+	box-shadow: none;
+	border-radius: $b-radius;
+	color: $btn-hover-blue;
+
+	@include transition (0.3s ease-in-out);
+
+	&:focus{
+		border-color: $btn-blue; 
+	}
+
+	&:hover{
+		border-color: $btn-blue;
+	}
+}

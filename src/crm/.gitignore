@@ -1,0 +1,9 @@
+/files/
+/e2eTesting/cypress/videos/
+/e2eTesting/cypress/screenshots/
+/e2eTesting/cypress/downloads/
+/e2eTesting/node_modules/
+/e2eTesting/package-lock.json
+
+/jobstep_pp/files/
+error_log

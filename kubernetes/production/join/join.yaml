@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: join-deployment
+spec:
+  selector:
+    matchLabels:
+      app: join
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: join
+    spec:
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: php-sessions
+        persistentVolumeClaim:
+          claimName: php-sessions-claim
+      containers:
+        - name: join
+          image: 689072714931.dkr.ecr.eu-west-1.amazonaws.com/join-jobstep-repository:production
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "250m"
+            limits:
+              memory: "1000Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          securityContext:
+            capabilities:
+              add: [ "SYS_PTRACE" ]
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - bash
+                  - '-c'
+                  - stop.sh
+          readinessProbe:
+            httpGet:
+              path: /health.php
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+          - name: php-sessions
+            mountPath: /php-sessions
+          env:
+          - name: APP_ENV
+            value: "production"
+          - name: JOIN_SERVER_NAME
+            value: "join.job-step.com"
+          - name: JOIN_URL
+            value: "https://join.job-step.com/"
+          - name: CRM_URL
+            value: "https://crm.job-step.com/"
+          - name: JS_URL
+            value: "https://js.job-step.com/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: join-service
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /health.php
+spec:
+  selector:
+    app: join
+  ports:
+    - port: 80
+      targetPort: 80

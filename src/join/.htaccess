@@ -1,0 +1,21 @@
+RewriteEngine On
+
+RewriteRule ^job/([0-9]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) registracija_preko_partnera.php?urlid=$1&token=$2&lang=$3
+RewriteRule ^job/([0-9]+)/([a-zA-Z0-9_-]+) registracija_preko_partnera.php?urlid=$1&token=$2
+RewriteRule ^job/([0-9]+) registracija_posao.php?urlid=$1
+RewriteRule ^job/thankyou/([0-9]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) thankyoupagepartner.php?id=$1&check=$2&lang=$3
+RewriteRule ^job/thank_you/([0-9]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) thankyoupageposao.php?id=$1&check=$2&lang=$3
+RewriteRule ^job registracija_posao.php?urlid=2298
+RewriteRule ^nostrification/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) registracija_dipl.php?pid=$1&lang=$2
+RewriteRule ^nostrification/thank_you thankyoupagedipl.php
+RewriteRule ^partner/signup/([a-zA-Z0-9_-]+) makler_signup.php?lang=$1
+RewriteRule ^partner/confirmationsent/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) makler_confirmation_sent.php?company=$1&lang=$2
+RewriteRule ^partner/confirmationsuccess/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) makler_account_confirmed.php?token=$1&company=$2&lang=$3
+RewriteRule ^partner/signup makler_signup.php
+RewriteRule ^partner makler_signup.php
+RewriteRule ^company/add/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) company_registration.php?lang=$1&token=$2 [L]
+RewriteRule ^company/add/([a-zA-Z0-9_-]+) company_registration.php?lang=$1 [L]
+RewriteRule ^company/add company_registration.php [L]
+RewriteRule ^company/thankyou/([a-zA-Z0-9_-]+) thankyoupagecompany.php?lang=$1
+
+ErrorDocument 404 /404.html

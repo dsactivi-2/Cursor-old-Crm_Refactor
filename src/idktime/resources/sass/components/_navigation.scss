@@ -1,0 +1,117 @@
+.side-navigation{
+	width: 220px;
+	height: 100vh;
+	background: #343f4b;
+	background: rgba(54,127,169,1);
+    background: -moz-linear-gradient(top, rgba(54,127,169,1) 0%, rgba(9,58,79,1) 71%, rgba(9,58,79,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(54,127,169,1)), color-stop(71%, rgba(9,58,79,1)), color-stop(100%, rgba(9,58,79,1)));
+    background: -webkit-linear-gradient(top, rgba(54,127,169,1) 0%, rgba(9,58,79,1) 71%, rgba(9,58,79,1) 100%);
+    background: -o-linear-gradient(top, rgba(54,127,169,1) 0%, rgba(9,58,79,1) 71%, rgba(9,58,79,1) 100%);
+    background: -ms-linear-gradient(top, rgba(54,127,169,1) 0%, rgba(9,58,79,1) 71%, rgba(9,58,79,1) 100%);
+    background: linear-gradient(to bottom, rgba(54,127,169,1) 0%, rgba(9,58,79,1) 71%, rgba(9,58,79,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#367fa9', endColorstr='#093a4f', GradientType=0 );
+	float: left;
+    display: block;
+    position: fixed;
+    overflow: hidden;
+
+	.side-navigation__header{
+		padding: 10px 0;
+		height: 50px;
+		background: #19526F;
+		text-align: center;
+
+		img{
+			max-height: 40px;
+		}
+	}
+
+	.side-navigation__body{
+		nav{
+			ul{
+				list-style: none;
+				padding-left: 0px;
+				margin-bottom: 0px;
+
+				li{
+					padding: 10px;
+					@include transition (0.3s, ease-in-out);
+
+					a{
+						display: block;
+						color: $gray;
+						font-size: 15px;
+						letter-spacing: .7px;
+						text-decoration: none;
+
+						i{
+							margin: 0px 10px;
+							min-width: 20px;
+							font-size: 20px;
+						}
+					}
+					
+					&.active{
+						a{
+							color: white;
+						}
+					}
+
+					&:hover{
+						a{
+							color: white;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.top-navigation{
+	background: white;
+	padding: 10px 0;
+	height: 50px;
+	box-shadow: $shadow;
+	text-align: right;
+
+	&__dropdown{
+		.dropdown{
+			button{
+				border: 0px solid transparent;
+			}
+		}
+	}
+}
+
+@media screen and(max-width: 845px){
+	.side-navigation{
+		width: 60px;
+
+		.desktop-header{
+			display: none !important;
+		}
+
+		.mobile-header{
+			display: flex !important;
+		}
+		
+		.side-navigation__body{
+			nav{
+				ul{
+					li{
+						text-align: center;
+						a{
+							span{
+								display: none;
+							}
+							i{
+								margin: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}	
+}

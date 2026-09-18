@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legacy-crm-cron-deployment
+spec:
+  selector:
+    matchLabels:
+      app: legacy-crm-cron
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: legacy-crm-cron
+    spec:
+      containers:
+        - name: legacy-crm-cron
+          image: 689072714931.dkr.ecr.eu-west-1.amazonaws.com/crm-cron-repository:production
+          imagePullPolicy: Always
+          env:
+          - name: APP_ENV
+            value: "production"
+          - name: CRM_URL
+            value: "https://crm.job-step.com/"
+          - name: JS_URL
+            value: "https://js.job-step.com/"
+

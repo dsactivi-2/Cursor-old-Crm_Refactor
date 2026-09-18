@@ -1,0 +1,114 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legacy-crm-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:689072714931:certificate/e05471d5-88e4-4fea-8ab0-8aa939109699,arn:aws:acm:eu-west-1:689072714931:certificate/a10fa99c-724a-40a4-923d-dc9007bae3a1,arn:aws:acm:eu-west-1:689072714931:certificate/3a2d5729-329b-4044-8ba4-4920f2c0cdaf,arn:aws:acm:eu-west-1:689072714931:certificate/95dc1052-84ec-4b5c-ae88-c1dc0de9ecb4,arn:aws:acm:eu-west-1:689072714931:certificate/36c043d8-908f-484c-9ab0-4dd18ae9c1d1,arn:aws:acm:eu-west-1:689072714931:certificate/02b6b948-d6de-4f52-8b12-a0e1b1629feb,arn:aws:acm:eu-west-1:689072714931:certificate/3fb32bb6-39c9-4cb9-a962-414d34ef2acb,arn:aws:acm:eu-west-1:689072714931:certificate/d5d9bb07-afe1-4a65-9c74-efd668920f7e,arn:aws:acm:eu-west-1:689072714931:certificate/05c7aa52-f6de-496e-834d-37df879708ce,arn:aws:acm:eu-west-1:689072714931:certificate/210bf071-3849-4c00-be0a-7607e8237350
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_307"}}'
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+spec:
+  ingressClassName: alb
+  rules:
+  - host: staging.crm.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: staging.crm.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: staging.js.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: staging.js.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: legacy-crm-service
+              port:
+                number: 80
+  - host: staging.join.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: join-service
+              port:
+                number: 80
+  - host: staging.join.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: join-service
+              port:
+                number: 80
+  - host: staging.api.pa.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: partnerapp-backend-service
+              port:
+                number: 80
+  - host: staging.api.pa.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: partnerapp-backend-service
+              port:
+                number: 80
+  - host: staging.pma.jobstep.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: phpmyadmin-service
+              port:
+                number: 80
+  - host: staging.pma.job-step.com
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: phpmyadmin-service
+              port:
+                number: 80

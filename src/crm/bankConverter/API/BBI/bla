@@ -1,0 +1,59 @@
+object(SimpleXMLElement)#3 (22) {
+  ["DIRECTION"]=>
+  string(1) "+"
+  ["DATUM_KNJIZENJA"]=>
+  string(10) "25.05.2022"
+  ["REFERENCA"]=>
+  string(22) "1974221455598873000002"
+  ["TIPDOKUMENTA"]=>
+  string(2) "IZ"
+  ["TRANSAKCIJA"]=>
+  string(9) "231961476"
+  ["ORDID"]=>
+  string(1) "0"
+  ["REF_BANK"]=>
+  string(1) "-"
+  ["REF_ACCOUNT"]=>
+  string(16) "1411941650000187"
+  ["REF_ACC_NAME"]=>
+  string(33) "DINO AHMETOVIĆ, MEMIĆI KALESIJA"
+  ["NAPOMENA"]=>
+  string(13) "DIPLCH-845-22"
+  ["VALUTA"]=>
+  string(1) "J"
+  ["IZNOS"]=>
+  string(6) "260.00"
+  ["PORESKI_BROJ_UPL"]=>
+  string(13) "4200375980006"
+  ["OPIS_TRANSAKCIJE"]=>
+  string(6) "130211"
+  ["NALOG_JP"]=>
+  string(16) "5974221455598867"
+  ["JP_POREZNI_BROJ"]=>
+  object(SimpleXMLElement)#4 (0) {
+  }
+  ["JP_VRSTA_PRIHODA"]=>
+  object(SimpleXMLElement)#2 (0) {
+  }
+  ["JP_VRSTA_UPLATE"]=>
+  object(SimpleXMLElement)#5 (0) {
+  }
+  ["JP_OPCINA"]=>
+  object(SimpleXMLElement)#6 (0) {
+  }
+  ["JP_OD"]=>
+  object(SimpleXMLElement)#7 (0) {
+  }
+  ["JP_DO"]=>
+  object(SimpleXMLElement)#8 (0) {
+  }
+  ["JP_BUDZETSKA"]=>
+  object(SimpleXMLElement)#9 (0) {
+  }
+}
+
+
+
+
+
+

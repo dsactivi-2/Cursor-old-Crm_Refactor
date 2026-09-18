@@ -1,0 +1,10 @@
+[04-Jun-2025 18:39:22 Europe/Sarajevo] PHP Notice:  Undefined index: nameSurname in /var/www/html/de/mail.php on line 55
+[04-Jun-2025 18:39:22 Europe/Sarajevo] PHP Notice:  Undefined index: companyName in /var/www/html/de/mail.php on line 56
+[04-Jun-2025 18:39:22 Europe/Sarajevo] PHP Notice:  Undefined index: email in /var/www/html/de/mail.php on line 57
+[04-Jun-2025 18:39:22 Europe/Sarajevo] PHP Notice:  Undefined index: phone in /var/www/html/de/mail.php on line 58
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: firstName in /var/www/html/de/mail.php on line 10
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: lastName in /var/www/html/de/mail.php on line 11
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: email in /var/www/html/de/mail.php on line 12
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: phone in /var/www/html/de/mail.php on line 13
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: subject in /var/www/html/de/mail.php on line 14
+[10-Jun-2025 10:15:55 Europe/Sarajevo] PHP Notice:  Undefined index: message in /var/www/html/de/mail.php on line 15

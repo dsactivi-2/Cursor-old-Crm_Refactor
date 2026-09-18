@@ -1,0 +1,53 @@
+//otherdata_group
+employee_position = 1
+contact_type = 2
+company_type = 3
+event_group = 4
+company_status = 5
+
+//employee_status
+Korisnik = 3
+Super korisnik = 2
+Administrator = 1
+Deaktiviran = 0
+
+//Greske
+Greska: 100 - Upload greska kod dodavanja novog zaposlenika.
+Greska: 101 - Folder nije dostupan. Kontaktirajte svoga administratora.
+
+//idk_notes
+note_group 1 = employee
+note_group 2 = contact
+note_group 3 = companies
+
+note_level 0 = all
+note_level 1 = supervisor & administrator
+note_level 2 = administrator
+
+//idk_documents
+document_group 1 = employee
+document_group 2 = contact
+document_group 3 = companies
+
+//idk_contacts_info
+ci_group 1 = phone
+ci_group 2 = email
+ci_group 3 = ostalo
+
+//idk_timeline
+timeline_group 1 = contact
+timeline_group 2 = companies
+
+//idk_tasks
+task_group 1 = contact
+task_group 2 = employees
+task_group 3 = companies
+
+//idk_messages
+message_status 1 = aktivna Poruka
+message_status 2 = arhivirana Poruka
+
+//idk_messages_users
+mu_status 0 = nova poruka
+mu_status 1 = procitana poruka
+mu_status 2 = arhivirana poruka

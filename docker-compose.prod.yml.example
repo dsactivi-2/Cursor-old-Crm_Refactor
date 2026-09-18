@@ -1,0 +1,160 @@
+services:
+  ingress:
+    container_name: NetworkIngress
+    restart: always
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+    networks:
+      - network
+  acme:
+    image: nginxproxy/acme-companion
+    container_name: NetworkIngressAcme
+    restart: always
+    volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DEFAULT_MAIL:
+      NGINX_PROXY_CONTAINER:
+    networks:
+      - network
+  crm:
+    container_name: JobstepCRM
+    build:
+      dockerfile: ./docker/crm/Dockerfile
+      target: release
+    networks:
+      - network
+    restart: always
+    volumes:
+      - php-sessions:/php-sessions
+      - ../crm_files:/var/www/html/files
+      - ../js_files:/var/www/html/jobstep_pp/files
+      - ../visa_files:/var/www/html/online-viza/files
+      - ../pdf_contracts:/var/www/html/tcpdf-main/ugovori
+    environment:
+      APP_ENV:
+      CRM_URL:
+      CRM_SERVER_NAME:
+      JS_URL:
+      JS_SERVER_NAME:
+      JOIN_URL:
+      MESSENGER_APP_KEY:
+      MESSENGER_APP_URL:
+      VIZA_APP_KEY:
+      VIZA_APP_URL:
+      DB_HOST:
+      DB_PORT:
+      DB_DATABASE:
+      DB_USER:
+      DB_PASSWORD:
+      # For ingress
+      VIRTUAL_HOST: "newprod.crm.job-step.com,newprod.js.job-step.com"
+      LETSENCRYPT_HOST: "newprod.crm.job-step.com,newprod.js.job-step.com"
+# crm-cron:
+#   container_name: CRMCron
+#   build:
+#     dockerfile: ./docker/crm-cron/Dockerfile
+#   networks:
+#     - network
+#   restart: always
+#   environment:
+#     APP_ENV:
+#     CRM_URL:
+#     JS_URL:
+  partnerapp:
+    container_name: PartnerAppBackend
+    build:
+      dockerfile: ./docker/partner-app-backend/Dockerfile
+      target: release
+    networks:
+      - network
+    restart: always
+    volumes:
+      - php-sessions:/php-sessions
+    environment:
+      APP_ENV:
+      PA_SERVER_NAME:
+      CRM_URL:
+      JS_URL:
+      DB_HOST:
+      DB_PORT:
+      DB_DATABASE:
+      DB_USER:
+      DB_PASSWORD:
+      # For ingress
+      VIRTUAL_HOST:
+      LETSENCRYPT_HOST:
+  join:
+    container_name: Join
+    build:
+      dockerfile: ./docker/join/Dockerfile
+      target: release
+    networks:
+      - network
+    restart: always
+    volumes:
+      - php-sessions:/php-sessions
+    environment:
+      APP_ENV:
+      JOIN_SERVER_NAME:
+      JOIN_URL:
+      CRM_URL:
+      JS_URL:
+      # For ingress
+      VIRTUAL_HOST:
+      LETSENCRYPT_HOST:
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION"
+    container_name: MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      TZ: Europe/Berlin
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./databaseDump:/docker-entrypoint-initdb.d
+    networks:
+      - network
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: PhpMyAdmin
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      PMA_HOST:
+      PMA_PORT:
+      MYSQL_ROOT_PASSWORD:
+      # For ingress
+      VIRTUAL_HOST:
+      LETSENCRYPT_HOST:
+    restart: always
+    networks:
+      - network
+networks:
+  network:
+volumes:
+  dbdata:
+  php-sessions:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:

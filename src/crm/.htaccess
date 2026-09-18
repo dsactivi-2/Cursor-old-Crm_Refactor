@@ -1,0 +1,122 @@
+RewriteEngine On
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^login/poruka/([0-9]+) login.php?mess=$1
+RewriteRule ^change_password_request/poruka/([0-9]+) change_password_request.php?mess=$1
+
+
+RewriteRule ^prijava/completed public_kandidati_messenger.php?page=completed
+RewriteRule ^prijava/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=info1&id=$1
+RewriteRule ^download public_kandidati_messenger.php?page=download_app
+RewriteRule ^sms_tutorial public_kandidati_messenger.php?page=sms_tutorijal
+RewriteRule ^partners/eligible_leads_to_assign partners.php?page=eligible_leads_to_assign
+RewriteRule ^partners/new_account partners.php?page=new_account
+RewriteRule ^partners/listdvag partners.php?page=list_dvag
+RewriteRule ^partners/list partners.php?page=list
+RewriteRule ^partners/finance partners.php?page=finance
+RewriteRule ^partners/([0-9]+) partners.php?page=open&id=$1
+
+RewriteRule ^dipl_info/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=dipl_info&id=$1
+RewriteRule ^nostrifikacija_info_bs/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=nost_bs&id=$1
+RewriteRule ^nostrifikacija_info_rs/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=nost_rs&id=$1
+RewriteRule ^info/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=dipl_info_tip2&id=$1
+RewriteRule ^rinfo/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=dipl_info_resend&id=$1
+RewriteRule ^dipl/completed/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=dipl_completed&id=$1
+RewriteRule ^dipl/complete/([a-zA-Z0-9_-]+) public_kandidati_messenger.php?page=dipl_completed_tip2&id=$1
+RewriteRule ^predracuni/([a-zA-Z0-9_-]+) export_excel.php?prozor=export_mail_mikrofin&datum=$1
+RewriteRule ^dokument/([a-zA-Z0-9_-]+)/ files/predracuni_dipl/$i
+
+RewriteRule ^medicinari_prijava/([a-zA-Z0-9_-]+) medicinari_prijava.php?id=$1
+RewriteRule ^casting_prijava/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) tehnicari_prijava.php?projekt_id=$1&id=$2
+
+RewriteRule ^registracija/korak1/poruka/([0-9]+) public_kandidati.php?page=step1&mess=$1
+RewriteRule ^registracija/korak1/poruka/([0-9]+) public_kandidati.php?page=step1&mess=$1
+RewriteRule ^registracija/korak1/poruka2/([0-9]+) public_kandidati.php?page=dupla_prijava&poruka=$1
+RewriteRule ^registracija/korak1 public_kandidati.php?page=step1
+RewriteRule ^registracija/([0-9]+)/korak1/([a-zA-Z0-9_-]+) public_kandidati.php?urlid=$1&page=step1&token=$2
+RewriteRule ^registracija/([0-9]+)/korak1 public_kandidati.php?urlid=$1&page=step1
+RewriteRule ^registracija/korak2/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step2&id=$1&check=$2
+RewriteRule ^registracija/korak3/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step3&id=$1&check=$2
+RewriteRule ^registracija/korak4/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step4&id=$1&check=$2
+RewriteRule ^registracija/korak5/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step6&id=$1&check=$2
+RewriteRule ^registracija/korak6/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step6&id=$1&check=$2
+RewriteRule ^registracija/korak7/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step7&id=$1&check=$2
+RewriteRule ^registracija/korak8/([0-9]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step8&id=$1&check=$2
+RewriteRule ^registracija/thank_you/([0-9]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) public_kandidati.php?page=step_prechat&id=$1&check=$2&lang=$3
+RewriteRule ^nostrifikacija/prijava public_kandidati.php?page=formJSinDIPL
+RewriteRule ^nostrifikacija/completed public_kandidati.php?page=porukaJSinDIPL
+RewriteRule ^diplvici/([0-9]+) nostrifikacija_diploma.php?page=otvori_ND_kandidata&id=$1
+RewriteRule ^pitanje_nost/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) pitanje_nost.php?pid=$1&lang=$2
+RewriteRule ^predracun/([a-zA-Z0-9_-]+) files/public_temp_files/predracuni_dipl/$1.pdf
+RewriteRule ^dokumenti/mikrofin/([a-zA-Z0-9_-]+) mikrofinAPI.php?action=procureDownload&id=$1
+RewriteRule ^h_prijava/([0-9]+) hammer_prijave.php?page=prijavna_forma&id=$1
+RewriteRule ^h_prijava/thank_you/([0-9]+)/([0-9]+) hammer_prijave.php?page=thank_you&id=$1&nalog=$2
+RewriteRule ^ugovor/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) ugovor_handler.php?action=poziv&token=$1&jezik=$2
+RewriteRule ^ugovorNew/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+) ugovor_handler_new.php?action=poziv&token=$1&jezik=$2
+RewriteRule ^angacom digitalni_nalog.php
+RewriteRule ^landing_page/([a-zA-Z0-9_-]+) landing_page.php?page=input_forma&id=$1
+RewriteRule ^landing_page_success landing_page.php?page=success
+
+#Izbrisi .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+#Zabrani pristup .git fileovima
+RedirectMatch 404 /\.git
+
+#Zabrani pristup error_log fileu
+RedirectMatch 404 error_log
+
+#Zabrani pristup pristupnim podacima za PP
+RedirectMatch 404 /pristupni.php
+
+ErrorDocument 404 /error404
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Video
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/mpeg "access plus 1 year"
+
+  # CSS, JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+  # Others
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType application/x-shockwave-flash "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch ".(eot|otf|ttf|woff|woff2)">
+      Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+SetEnv HTTPS "on"
