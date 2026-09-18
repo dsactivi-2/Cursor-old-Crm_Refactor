@@ -1,0 +1,126 @@
+# Instincts generated from https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+# Generated: 2026-09-18T22:44:42.119Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: Cursor-old-Crm_Refactor-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Commit Length
+
+## Action
+
+Keep commit messages concise (~26 characters)
+
+## Evidence
+
+- Average commit message length: 26 chars
+- Based on 2 commits
+
+---
+id: Cursor-old-Crm_Refactor-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: Cursor-old-Crm_Refactor-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: Cursor-old-Crm_Refactor-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: Cursor-old-Crm_Refactor-test-colocate
+trigger: "when writing tests"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Test Colocate
+
+## Action
+
+Place test file next to the source file (e.g., Button.test.tsx next to Button.tsx)
+
+## Evidence
+
+- Colocated test pattern detected
+- Tests live alongside source files
+
+---
+id: Cursor-old-Crm_Refactor-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/dsactivi-2/Cursor-old-Crm_Refactor
+---
+
+# Cursor Old Crm_Refactor Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
