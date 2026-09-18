@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cursor Old Crm Refactor"
+  short_description: "Repo-specific patterns and workflows for Cursor-old-Crm_Refactor"
+  default_prompt: "Use the Cursor-old-Crm_Refactor repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
